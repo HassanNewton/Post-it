@@ -14,39 +14,39 @@ spec:
         app: worker
     spec:
       containers:
-      - name: worker
-        image: gitlab.control.lth.se:5050/regler/frtn90/2025/agroup05/worker-test
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "50m"   
-            memory: "128Mi"
-          limits:
-            cpu: "500m"
-            memory: "256Mi"
-        env:
-        - name: RABBIT_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: RABBIT_HOST
-        - name: RABBIT_USER
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: RABBIT_USER
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REDIS_HOST
-        - name: DATA_SERVICE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: DATA_SERVICE_URL
-        - name: RABBIT_PASS
-          valueFrom:
-            secretKeyRef:
-              name: app-secrets
-              key: RABBIT_PASS
+        - name: worker
+          image: gitlab.control.lth.se:5050/regler/frtn90/2025/agroup05/worker-test
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          env:
+            - name: RABBIT_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: RABBIT_HOST
+            - name: RABBIT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: RABBIT_USER
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: REDIS_HOST
+            - name: DATA_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DATA_SERVICE_URL
+            - name: RABBIT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: RABBIT_PASS

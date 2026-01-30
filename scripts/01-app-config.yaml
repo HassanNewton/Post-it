@@ -9,4 +9,3 @@ data:
   REDIS_HOST: "redis"
   RABBITMQ_DEFAULT_USER: "appuser"
   DATA_SERVICE_URL: "http://data-service:6000"
-  

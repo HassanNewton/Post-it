@@ -14,14 +14,14 @@ spec:
         app: data-service
     spec:
       containers:
-      - name: data-service
-        image: gitlab.control.lth.se:5050/regler/frtn90/2025/agroup05/data-service:latest
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 6000
-        env:
-        - name: REDIS_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: REDIS_HOST
+        - name: data-service
+          image: gitlab.control.lth.se:5050/regler/frtn90/2025/agroup05/data-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6000
+          env:
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: REDIS_HOST

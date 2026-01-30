@@ -7,7 +7,7 @@ spec:
   selector:
     app: data-service
   ports:
-  - name: http
-    port: 6000
-    targetPort: 6000
+    - name: http
+      port: 6000
+      targetPort: 6000
   type: ClusterIP
