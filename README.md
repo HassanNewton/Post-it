@@ -61,5 +61,3 @@ curl -X POST http://localhost:5000/workload
 kubeclt get pods -n post-it
 kubectl delete pod <pod-name> -n post-it
 kubeclt get pods -n post-it
-
-# 7. To demonstrate rolling-update with CI/CD
