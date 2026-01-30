@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: post-it
+data:
+  RABBIT_HOST: "rabbitmq"
+  RABBIT_USER: "appuser"
+  REDIS_HOST: "redis"
+  RABBITMQ_DEFAULT_USER: "appuser"
+  DATA_SERVICE_URL: "http://data-service:6000"
+  

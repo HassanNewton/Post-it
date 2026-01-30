@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  namespace: post-it
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: gitlab.control.lth.se:5050/regler/frtn90/2025/agroup05/app-test
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+        env:
+        - name: RABBIT_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: RABBIT_HOST
+
+        - name: RABBIT_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: RABBIT_USER
+
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: REDIS_HOST
+
+        - name: DATA_SERVICE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: DATA_SERVICE_URL
+
+        - name: RABBIT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: RABBIT_PASS
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  namespace: post-it
+spec:
+  selector:
+    app: app
+  ports:
+  - name: http
+    port: 5000
+    targetPort: 5000
+
+

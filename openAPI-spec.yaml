@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: PostIt Board API
+  description: API for a simple post board with Redis and RabbitMQ
+  version: 1.0.0
+paths:
+  /api/post:
+    post:
+      summary: Create a new post
+      description: Submit a post to the board, which is saved in Redis and sent to RabbitMQ
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - author
+                - message
+              properties:
+                author:
+                  type: string
+                message:
+                  type: string
+      responses:
+        '200':
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ts:
+                    type: number
+                    format: float
+                  author:
+                    type: string
+                  message:
+                    type: string
+        '400':
+          description: Missing author or message
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/posts:
+    get:
+      summary: List recent posts
+      description: Returns the 50 most recent posts from Redis
+      responses:
+        '200':
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ts:
+                      type: number
+                      format: float
+                    author:
+                      type: string
+                    message:
+                      type: string

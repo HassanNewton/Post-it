@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-service
+  namespace: post-it
+spec:
+  selector:
+    app: data-service
+  ports:
+  - name: http
+    port: 6000
+    targetPort: 6000
+  type: ClusterIP

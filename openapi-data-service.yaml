@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: PostIt Data Service API
+  version: 1.0.0
+paths:
+  /data/posts:
+    post:
+      summary: Create a post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [author, message]
+              properties:
+                author:
+                  type: string
+                message:
+                  type: string
+                ts:
+                  type: number
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    get:
+      summary: List recent posts
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: List of posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+
+  /data/processed:
+    post:
+      summary: Submit processed value
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [value]
+              properties:
+                value:
+                  type: string
+      responses:
+        "200":
+          description: Accepted
+
+  /data/stats:
+    get:
+      summary: Get processing statistics
+      responses:
+        "200":
+          description: Stats object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        author:
+          type: string
+        message:
+          type: string
+        ts:
+          type: number
+
+    Stats:
+      type: object
+      properties:
+        total_processed:
+          type: integer
+        last_value:
+          type: string
+        recent_values:
+          type: array
+          items:
+            type: string
